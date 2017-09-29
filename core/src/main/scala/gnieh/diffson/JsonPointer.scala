@@ -54,19 +54,23 @@ trait JsonPointerSupport[JsValue] {
         val parts = input.split("/")
           // the first element is always empty as the path starts with a '/'
           .drop(1)
+
         if (parts.length == 0) {
           // the pointer was simply "/"
           Path(Root, "")
         } else {
+
           // check that an occurrence of '~' is followed by '0' or '1'
           if (parts.exists(_.matches(".*~(?![01]).*"))) {
             throw new PointerException("Occurrences of '~' must be followed by '0' or '1'")
           } else {
-            parts
+            val allParts = if (input.endsWith("/")) parts :+ "" else parts
+            val elems = allParts
               // transform the occurrences of '~1' into occurrences of '/'
               // transform the occurrences of '~0' into occurrences of '~'
               .map(_.replace("~1", "/").replace("~0", "~"))
               .foldLeft(Pointer.root)(_ / _)
+            elems
           }
         }
       }
