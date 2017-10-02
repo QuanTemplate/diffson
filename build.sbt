@@ -18,7 +18,7 @@ lazy val commonSettings = Seq(
   },
   organization := "com.quantemplate",
   scalaVersion := scala212,
-  version := "2.2.2-qt-1",
+  version := "2.2.2-qt-2",
   description := "Json diff/patch library",
   licenses += ("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
   homepage := Some(url("https://github.com/gnieh/diffson")),
