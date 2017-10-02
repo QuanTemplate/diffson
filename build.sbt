@@ -11,14 +11,11 @@ val scala212 = "2.12.2"
 lazy val commonSettings = Seq(
   publishTo := {
     val nexus = "https://quantemplate.artifactoryonline.com/quantemplate"
-    if (isSnapshot.value)
-      Some("snapshots" at nexus + "/libs-snapshot-local")
-    else
-      Some("releases" at nexus + "/libs-release-local")
+    Some("releases" at nexus + "/libs-release-local")
   },
   organization := "com.quantemplate",
   scalaVersion := scala212,
-  version := "2.2.2-qt-2",
+  version := "2.2.2-qt-3",
   description := "Json diff/patch library",
   licenses += ("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
   homepage := Some(url("https://github.com/gnieh/diffson")),
