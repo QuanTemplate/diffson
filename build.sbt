@@ -14,7 +14,7 @@ lazy val commonSettings = Seq(
     Some("releases" at nexus + "/libs-release-local")
   },
   publishMavenStyle := true,
-  organization := "com.quantemplate",
+  organization := "org.gnieh",
   scalaVersion := scala212,
   version := "2.2.2-qt-6",
   description := "Json diff/patch library",
