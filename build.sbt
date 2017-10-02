@@ -1,16 +1,22 @@
 import com.typesafe.sbt.SbtScalariform.ScalariformKeys
-import scalariform.formatter.preferences._
 
+import scalariform.formatter.preferences._
 import UnidocKeys._
+import sbt.Keys.version
 
 val scala210 = "2.10.6"
-val scala211 = "2.11.11"
+val scala211 = "2.11.8"
 val scala212 = "2.12.2"
 
 lazy val commonSettings = Seq(
+  publishTo := {
+    val nexus = "https://quantemplate.artifactoryonline.com/quantemplate"
+    Some("releases" at nexus + "/libs-release-local")
+  },
+  publishMavenStyle := true,
   organization := "org.gnieh",
   scalaVersion := scala212,
-  version := "2.2.2",
+  version := "2.2.2-qt-6",
   description := "Json diff/patch library",
   licenses += ("The Apache Software License, Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.txt")),
   homepage := Some(url("https://github.com/gnieh/diffson")),
@@ -97,37 +103,4 @@ lazy val circe = project.in(file("circe"))
   .dependsOn(core % "test->test;compile->compile")
 
 lazy val publishSettings = Seq(
-  publishMavenStyle := true,
-  publishArtifact in Test := false,
-  // The Nexus repo we're publishing to.
-  publishTo := Some(
-  if (isSnapshot.value)
-    Opts.resolver.sonatypeSnapshots
-  else
-    Opts.resolver.sonatypeStaging
-  ),
-  pomIncludeRepository := { x => false },
-  pomExtra := (
-    <scm>
-      <url>https://github.com/gnieh/diffson</url>
-      <connection>scm:git:git://github.com/gnieh/diffson.git</connection>
-      <developerConnection>scm:git:git@github.com:gnieh/diffson.git</developerConnection>
-      <tag>HEAD</tag>
-    </scm>
-    <developers>
-      <developer>
-        <id>satabin</id>
-        <name>Lucas Satabin</name>
-        <email>lucas.satabin@gnieh.org</email>
-      </developer>
-    </developers>
-    <ciManagement>
-      <system>travis</system>
-      <url>https://travis-ci.org/#!/gnieh/diffson</url>
-    </ciManagement>
-    <issueManagement>
-      <system>github</system>
-      <url>https://github.com/gnieh/diffson/issues</url>
-    </issueManagement>
-  )
 )
